@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define HIDDEN __attribute__((visibility("hidden")))
+
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -19,7 +21,7 @@ typedef struct {
 	char *out; // stdout buffer
 } boul_cmd;
 
-bool run_cmd(boul_cmd buf);
+HIDDEN bool run_cmd(boul_cmd buf);
 
 #ifdef __cplusplus
 }

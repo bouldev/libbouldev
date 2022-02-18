@@ -80,10 +80,10 @@ int wmi_query_count(const _TCHAR* query)
 #ifdef linux
 bool under_qemu()
 {
-	char *cmdline;
+	char *cmdline = NULL;
 	strcpy(cmdline, "cat /proc/cpuinfo | grep QEMU &> /dev/null");
-	char *out;
-	int ret;
+	char *out = NULL;
+	int ret = 0;
 	boul_cmd buf = { cmdline, ret, out };
 	run_cmd(buf);
 
