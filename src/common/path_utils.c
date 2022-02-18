@@ -1,6 +1,8 @@
 #include <stdint.h>
+#include <stdbool.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <libbouldev.h>
 
 bool path_exists(const char *path)
 {

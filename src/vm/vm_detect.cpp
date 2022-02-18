@@ -101,7 +101,7 @@ bool under_sandbox()
 	char *cmdline = NULL;
 	char *out = NULL;
 	int ret = 0;
-	strcpy(cmdline, "grep -sq 'docker\|lxc' /proc/1/cgroup &> /dev/null");
+	strcpy(cmdline, "grep -sq 'docker|lxc' /proc/1/cgroup &> /dev/null");
 	boul_cmd buf = { cmdline, ret, out };
 	run_cmd(buf);
 
@@ -113,9 +113,9 @@ bool under_sandbox()
 bool os_is_vm()
 {
 #ifdef _WIN32
-    return wmi_query_count(_T("SELECT * FROM Win32_PortConnector")) == 0 ? true : false;
+	return wmi_query_count(_T("SELECT * FROM Win32_PortConnector")) == 0 ? true : false;
 #elif defined(linux)
-    return (under_qemu() || under_sandbox());
+	return (under_qemu() || under_sandbox());
 #elif defined(__APPLE__)
     // Not doing detections on Darwin systems for now
     return false;

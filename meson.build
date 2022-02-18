@@ -7,6 +7,8 @@ project_headers = [
 
 project_source_files = [
 	'src/common/run_cmd.c',
+	'src/common/path_utils.c',
+	'src/vm/chroot_detect.c',
 	'src/vm/vm_detect.cpp'
 ]
 
