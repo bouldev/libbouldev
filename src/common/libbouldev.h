@@ -11,6 +11,7 @@ extern "C" {
 #endif // __cplusplus
 
 bool os_is_vm(void);
+bool os_chrooted(void);
 char *os_type(void);
 
 #ifdef __cplusplus

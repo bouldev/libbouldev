@@ -78,12 +78,13 @@ int wmi_query_count(const _TCHAR* query)
 #endif
 
 #ifdef linux
+static
 bool under_qemu()
 {
 	char *cmdline = NULL;
-	strcpy(cmdline, "cat /proc/cpuinfo | grep QEMU &> /dev/null");
 	char *out = NULL;
 	int ret = 0;
+	strcpy(cmdline, "cat /proc/cpuinfo | grep QEMU &> /dev/null");
 	boul_cmd buf = { cmdline, ret, out };
 	run_cmd(buf);
 
@@ -92,12 +93,29 @@ bool under_qemu()
 }
 #endif
 
+static
+bool under_sandbox()
+{
+	if (path_exists("/.dockerenv")) return true;
+#ifdef linux
+	char *cmdline = NULL;
+	char *out = NULL;
+	int ret = 0;
+	strcpy(cmdline, "grep -sq 'docker\|lxc' /proc/1/cgroup &> /dev/null");
+	boul_cmd buf = { cmdline, ret, out };
+	run_cmd(buf);
+
+	if (ret == 0) return true;
+#endif
+	return false;
+}
+
 bool os_is_vm()
 {
 #ifdef _WIN32
     return wmi_query_count(_T("SELECT * FROM Win32_PortConnector")) == 0 ? true : false;
 #elif defined(linux)
-    return under_qemu();
+    return (under_qemu() || under_sandbox());
 #elif defined(__APPLE__)
     // Not doing detections on Darwin systems for now
     return false;

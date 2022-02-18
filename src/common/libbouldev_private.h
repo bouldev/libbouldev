@@ -22,6 +22,8 @@ typedef struct {
 } boul_cmd;
 
 HIDDEN bool run_cmd(boul_cmd buf);
+HIDDEN bool path_exists(const char *path);
+HIDDEN bool path_is_dir(const char *path);
 
 #ifdef __cplusplus
 }
